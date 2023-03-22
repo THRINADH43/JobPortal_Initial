@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Recruiter Home Page</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/login/recruiter_home_page">Home</a></li>
+          <li><a href="/login/post_job">Post a Job</a></li>
+          <li><a href="/login/createdbyme">Created by Me</a></li>
+            <li><a href="/login/recruiter/updatepassword">Update Password</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/login/recruiter_logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    {% if delete_msg %}
+            <h3 style="color: green;text-align: center;">{{delete_msg}}</h3>
+    {% endif %}
+    {% if msg %}
+        {{msg}}
+    {% endif %}
+    {%if applymessage %}
+        {{applymessage}}
+    {% endif %}
+    {% if result %}
+    <p>Title: {{result['title']}}</p><br>
+    <p>Type: {{result['type']}}</p><br>
+    <p>Description: {{result['description']}}</p><br>
+    <p>Experience: {{result['experience']}}</p><br>
+    <p>Skill 1: {{result['skill1']}}</p><br>
+    <p>Skill 2:{{result['skill2']}}</p><br>
+    <p>Location 1: {{result['location1']}}</p><br>
+    <p>Location 2:  {{result['location2']}}</p><br>
+    <p>Remote : {{result['remote']}}</p><br>
+    <p>Link : {{result['link']}}</p>
+    <a href="{{url_for('login_blueprint.recruiter_home.eligible')}}" style="text-align: right;">Click Here to see eligible Candiates</a><br>
+    <a href="{{url_for('login_blueprint.recruiter_home.appliedby')}}" style="text-align: left">Click Here to see Applied list</a><br>
+    <a href="{{url_for('login_blueprint.recruiter_home.deletejob',jobid=job_id)}}" style="text-align: center;color: red">Click Here to Delete Job</a>
+    {% endif %}
+    {% if jobresult %}
+        {% for data in jobresult %}
+            <a href="#" class="list-group-item">
+                <a href="{{url_for('login_blueprint.recruiter_home.notify',id = data['id'])}}">Send Notification</a>
+                <h4>Name: {{data['name']}}</h4>
+                <h4>ID: {{data['id']}}</h4>
+                <h4>Skill1: {{data['skill1']}}</h4>
+                <h4>Skill2 : {{data['skill2']}}</h4>
+                <h4>Experience : {{data['experience']}}</h4>
+            </a>
+        {% endfor %}
+    {% endif %}
+    {% if no_result %}
+        <h4>{{no_result}}</h4>
+    {% endif %}
+    {% if message %}
+    <script>
+        alert("Mail Sent");
+    </script>
+    {% endif %}
+    <h4></h4>
+    {% if apply %}
+    {% for d in apply %}
+        <a href="{{url_for('login_blueprint.recruiter_home.download',filename = d['resume'])}}" class="list-group-item">Click to Download Resume
+                <h4>Name: {{d['name']}}</h4>
+                <h4>ID: {{d['applicantid']}}</h4>
+                <h4>Job Type: {{d['jobtype']}}</h4>
+                <h4>Bio: {{d['bio']}}</h4>
+                <h4>Skill1: {{d['skill1']}}</h4>
+                <h4>Skill2 : {{d['skill2']}}</h4>
+                <h4>Experience : {{d['experience']}}</h4>
+                <h4>Linkedin: {{d['linkedin']}}</h4>
+                <h4>Github: {{d['github']}}</h4>
+                <h4>College: {{d['college']}}</h4>
+            </a>
+    {% endfor %}
+    {% endif %}
+</body>
+</html>

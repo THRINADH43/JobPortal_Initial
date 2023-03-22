@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Recruiter Home Page</title>
+    <style>
+        .form-container {
+            width: 500px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        .shadow {
+            box-shadow: 10px 10px 5px grey;
+        }
+.center-text {
+  text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{{url_for('login_blueprint.jobseeker_home.jobseeker_home_page')}}">Home</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.searchjob')}}">Search Title</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.applied_list')}}">View Applied List</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.google_api')}}">Google API</a></li>
+          <li><a href="{{url_for('login_blueprint.jobseeker_home.myprofile')}}">My Profile</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.updatepassword')}}">Update Password</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{url_for('login_blueprint.jobseeker_home.jobseeker_logout')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+            {% if msg %}
+                <h4>{{msg}}</h4>
+            {% endif %}
+            <div class="shadow">
+            {% if to_update %}
+            <form method="POST" enctype="multipart/form-data" action="{{url_for('login_blueprint.jobseeker_home.update')}}">
+                {{ form.hidden_tag() }}<br>
+                {{form.jobtype.label}} {{form.jobtype}}<br>
+                <div class="center-text">
+                {{form.bio.label}} {{form.bio}}<br>
+                {{form.githublink.label}} {{form.githublink}}<br>
+                {{form.linkedinlink.label}} {{form.linkedinlink}}<br>
+                {{form.college.label}} {{form.college}}<br>
+                {{form.skill1.label}} {{form.skill1(id='skill1')}}<br>
+                {{form.skill2.label}} {{form.skill2(id='skill2')}}<br>
+                {{form.location1.label}} {{form.location1(id='location1')}}<br>
+                    <div>
+                        <label for="occupation">{{form.occupation.label}}</label>
+                            {{ form.occupation(onchange="showDiv(this)") }}<br>
+                    </div>
+            <div id="student" style="display:none;">
+                <div>
+                    <label for="student"> {{form.graduation_year.label}}</label>
+                    {{ form.graduation_year }}<br>
+                </div>
+            </div>
+            <div id="professional" style="display:none;">
+                <div>
+                    <label for="professional">{{form.experience.label}}</label>
+                    {{ form.experience }}<br>
+                </div>
+            </div>
+                <div id="file">
+                    <div>
+                        <label for="file">{{form.file.label}}</label>{{form.file}}
+                    </div>
+                </div>
+                <div>
+                        {{ form.submit }}
+                 </div>
+                </form>
+        {% endif %}
+            </div>
+
+<script>
+    window.onload = function() {
+        var location1 = document.getElementById("location1");
+        var location2 = document.getElementById("location2");
+        var skill1 = document.getElementById("skill1");
+        var skill2 = document.getElementById("skill2");
+        location1.onchange = function () {
+            location2.value = "";
+            for (var i = 0; i < location2.options.length; i++) {
+                if (location1.value === location2.options[i].value) {
+                    location2.options[i].style.display = "none";
+                } else {
+                    location2.options[i].style.display = "block";
+                }
+            }
+        }
+    }
+    function showDiv(select){
+        var div_student = document.getElementById("student");
+        var div_professional = document.getElementById("professional");
+        if(select.value === "Student"){
+            div_student.style.display = "block";
+            div_professional.style.display = "none";
+        }
+        else{
+            div_student.style.display = "none";
+            div_professional.style.display = "block";
+        }
+    }
+    var input = document.querySelector("input[type='file']");
+    var form = document.querySelector("form");
+    var maxSize = 3 * 1024 * 1024; // 3MB
+    var allowedExtensions = ["pdf"];
+
+form.addEventListener("submit", function(e) {
+  var file = input.files[0];
+  if (file) {
+    var fileSize = file.size;
+    var fileExtension = file.name.split(".")[1].toLowerCase();
+    if (fileSize > maxSize) {
+      alert("File size should be less than 3MB");
+      e.preventDefault();
+    } else if (allowedExtensions.indexOf(fileExtension) === -1) {
+      alert("Only PDF files are allowed");
+      e.preventDefault();
+    } else {
+      // submit the form
+    }
+  }
+});
+</script>
+</body>
+</html>

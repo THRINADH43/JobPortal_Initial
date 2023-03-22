@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OTP Successful</title>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+    {% if success %}
+    <h3 style="color: green;">Authentication Successful</h3>
+    <h3 align="center">You would be Redirected to Home Page in 3 seconds.</h3>
+    <h3 align="center"><a href="{{url_for('home')}}">If not click Here</a></h3>
+    </div>
+    <script>
+    setTimeout(() => {
+        location.href = "{{ url_for('home') }}";
+    }, 3000);
+</script>
+    {% endif %}
+    {% if auth_not %}
+        <h3 style="color: red;text-align: center">{{auth_not}} </h3>
+    {% endif %}
+</body>
+</html>

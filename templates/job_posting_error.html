@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Error in Job Posting</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/login/recruiter_home_page">Home</a></li>
+          <li><a href="/login/post_job">Post a Job</a></li>
+          <li><a href="/login/createdbyme">Created by Me</a></li>
+            <li><a href="/login/recruiter/updatepassword">Update Password</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/login/recruiter_logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <p>The Submitted Form has Error</p>
+              <p>{{error}}</p>
+              <p>Please Re Create.</p>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+    </div>
+
+</body>
+</html>

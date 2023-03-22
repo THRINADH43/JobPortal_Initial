@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Recruiter Register</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">CareerConnect</a></li>
+            <li><a href="#">ProblemStatement</a></li>
+            <li><a href="#">Who are we</a></li>
+            <li><a href="#">Contact us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{url_for('login_blueprint.login')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </nav>
+      {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <h4 align="center">{{msg}}</h4>
+                {% endfor %}
+             {% endif %}
+      {% endwith %}
+        {% if exist_msg %}
+                    <h3 style="text-align: center; color: red;">{{ exist_msg }}</h3><br>
+                    <h4 style="text-align: center"><a href="/login">Click Here to Login</a></h4>
+        {% endif %}
+        {% if pass_error %}
+                    <h3 style="text-align: center; color: red">{{pass_error}}</h3>
+        {% endif %}
+      <div style="display: flex; justify-content: center; align-items: center; height: 100vh">
+          <h2>Recruiter Registration</h2>
+        <form style="background: white; padding: 20px; border-radius: 10px" action="/recruiter_register" method="post">
+          {{form.csrf_token}}
+          <p>{{form.name.label}} <br> {{form.name}}</p>
+          <p>{{form.mail.label}} <br> {{form.mail}}</p>
+          <p>{{form.password.label}} <br> {{form.password}}</p>
+          <p>{{form.conformpassword.label}} <br> {{form.conformpassword}}</p>
+          <p>{{form.company.label}} <br> {{form.company}}</p>
+          <p>{{form.submit.label}} <br> {{form.submit}} </br></p>
+        </form>
+      </div>
+</body>
+</html>

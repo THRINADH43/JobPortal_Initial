@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Job Posting Page</title>
+    <script>
+    window.onload = function() {
+        var location1 = document.getElementById("location1");
+        var location2 = document.getElementById("location2");
+        var skill1 = document.getElementById("skill1");
+        var skill2 = document.getElementById("skill2");
+        location1.onchange = function () {
+            location2.value = "";
+            for (var i = 0; i < location2.options.length; i++) {
+                if (location1.value === location2.options[i].value) {
+                    location2.options[i].style.display = "none";
+                } else {
+                    location2.options[i].style.display = "block";
+                }
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/login/recruiter_home_page">Home</a></li>
+          <li><a href="/login/post_job">Post a Job</a></li>
+          <li><a href="/login/createdbyme">Created by Me</a></li>
+            <li><a href="/login/recruiter/updatepassword">Update Password</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/login/recruiter_logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <form method="post" action="/login/post_job">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <label for="{{ form.title.id }}">{{ form.title.label }}</label>
+            {{ form.title(id='title') }}
+            <br>
+            <label for="{{ form.description.id }}">{{ form.description.label }}</label>
+            {{ form.description(id='description') }}
+            <br>
+            <label for="{{ form.jobtype.id }}">{{ form.jobtype.label }}</label>
+            {{ form.jobtype(id='jobtype') }}
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+        {{ form.csrf_token}}
+        {{ form.hidden_tag() }}
+        <div class="float-left">
+            <label for="{{ form.location1.id }}">{{ form.location1.label }}</label>
+            {{ form.location1(id='location1') }}
+            <br>
+            <label for="{{ form.location2.id }}">{{ form.location2.label }}</label>
+            {{ form.location2(id='location2') }}
+        </div>
+        <div class="float-right">
+            <label for="{{ form.skill1.id }}">{{ form.skill1.label }}</label>
+            {{ form.skill1(id='skill1') }}
+            <br>
+            <label for="{{ form.skill2.id }}">{{ form.skill2.label }}</label>
+            {{ form.skill2(id='skill2') }}
+            <br>
+            <label for="{{ form.experience.id }}">{{ form.experience.label }}</label>
+            {{ form.experience(id='experience') }}
+            <br>
+            <label for="{{ form.remote.id }}">{{ form.remote.label }}</label>
+            {{ form.remote(id='remote') }}
+            <br>
+            <label for="{{ form.link.id }}">{{ form.link.label }}</label>
+            {{ form.link(id='link') }}
+            <br>
+            <h5>Click on Submit Twice</h5>
+            {{form.submit}}
+        </div>
+    </form>
+</body>
+</html>

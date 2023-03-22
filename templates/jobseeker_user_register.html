@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OTP Successful</title>
+</head>
+<body>
+    <h3 align="center">Authentication Successful</h3>
+    <h3 align="center">You would be Redirected to Home Page in 3 seconds.</h3>
+    <h4 align="center">Please Login into your account</h4>
+    <h3 align="center"><a href="{{url_for('home')}}">If not click Here</a></h3>
+    <script>
+    setTimeout(() => {
+        location.href = "{{ url_for('home') }}";
+    }, 3000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+create table user
+(
+    id serial primary key,
+    name char(50) not null,
+    mail char(50) not null,
+    password char(50) not null,
+    type int not null,
+    company char(50)
+)
+

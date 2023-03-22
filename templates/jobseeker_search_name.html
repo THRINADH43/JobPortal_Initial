@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Title</title>
+    <style>
+        .viewwithtitle {
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{{url_for('login_blueprint.jobseeker_home.jobseeker_home_page')}}">Home</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.searchjob')}}">Search Title</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.applied_list')}}">View Applied List</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.google_api')}}">Google API</a></li>
+          <li><a href="{{url_for('login_blueprint.jobseeker_home.myprofile')}}">My Profile</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.updatepassword')}}">Update Password</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{url_for('login_blueprint.jobseeker_home.jobseeker_logout')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-10">
+          <p> Hello, {{session['name']}}</p>
+            {% if searchname %}
+            {{searchname.csrf_token}}
+            {{ searchname.hidden_tag() }}
+          <form action = "{{url_for('login_blueprint.jobseeker_home.searchjob')}}" method="POST">
+              <label for="jobname">Seach JobName: </label>{{searchname.title}}
+              <input type="submit" value="submit">
+            </form>
+            {%  endif %}
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+    {% if msg %}
+        <p align="center" >{{msg}}</p>
+    {% endif %}
+    <div>
+    <div class="viewwithtitle">
+    {% if user_result and job_result and title %}
+        {% for jobs in job_result %}
+            <h4>Title: {{title}}</br>JobID:{{jobs['jobid']}}</br> Type:{{user_result['jobtype']}} </br>Creadtedby: {{jobs['name']}}</h4>
+            <h4>Experience: {{user_result['experience']}}</br> Location1:{{user_result['location1']}}</br> Remote: {{user_result['remote']}}</h4>
+            <h4>Location2: {{jobs['location2']}} </br>Skill1:{{user_result['skill1']}}</br> Skill2:{{user_result['skill2']}}</h4>
+            <h4>Description: {{jobs['description']}}</h4>
+            <h4><a href="{{url_for('login_blueprint.jobseeker_home.apply_job',jobid=jobs['jobid'])}}">Click Here to Apply!</a></h4>
+        {% endfor %}
+    {% endif %}
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Recruiter Home Page</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{{url_for('login_blueprint.jobseeker_home.jobseeker_home_page')}}">Home</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.searchjob')}}">Search Title</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.applied_list')}}">View Applied List</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.google_api')}}">Google API</a></li>
+          <li><a href="{{url_for('login_blueprint.jobseeker_home.myprofile')}}">My Profile</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.updatepassword')}}">Update Password</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{url_for('login_blueprint.jobseeker_home.jobseeker_logout')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <script async src="https://cse.google.com/cse.js?cx=1235283dfebe640d7">
+         {{d.job}}
+    </script>
+    <div class="gcse-search" ></div>
+</body>
+</html>

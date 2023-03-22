@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Recruiter Home Page</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{{url_for('login_blueprint.jobseeker_home.jobseeker_home_page')}}">Home</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.searchjob')}}">Search Title</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.applied_list')}}">View Applied List</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.google_api')}}">Google API</a></li>
+          <li><a href="{{url_for('login_blueprint.jobseeker_home.myprofile')}}">My Profile</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.updatepassword')}}">Update Password</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{url_for('login_blueprint.jobseeker_home.jobseeker_logout')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-10">
+          <p> Hello, {{session['name']}}</p>
+          <form action="{{url_for('login_blueprint.jobseeker_home.jobseeker_search_jobid')}}" method="post">
+          <label for="jobid">Search JobID: </label>
+          <input type="number" name="jobid" placeholder="Enter JobID">
+          <input type="submit">
+          </form>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+    {% if msg %}
+        <p align="center" >{{msg}}</p>
+    {% endif %}
+    {% if jobsearch and createdidname %}
+    <p>Createdby: {{createdidname}}</p><br>
+    <p>Title: {{jobsearch['title']}}</p><br>
+    <p>Description: {{jobsearch['description']}}</p><br>
+    <p>Experience: {{jobsearch['experience']}}</p><br>
+    <p>Skill1: {{jobsearch['skill1']}}</p><br>
+    <p>Skill2: {{jobsearch['skill2']}}</p><br>
+    <p>Location1: {{jobsearch['location1']}}</p><br>
+    <p>Location2: {{jobsearch['location2']}}</p><br>
+    <p>Remote: {{jobsearch['remote']}}</p><br>
+    <p>Link: {{jobsearch['link']}}</p>
+    <form action="#" method="post">
+        <input type="submit" value="Apply">
+    </form>
+    {% endif %}
+</body>
+</html>

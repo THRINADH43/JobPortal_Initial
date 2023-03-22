@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Recruiter Home Page</title>
+    <style>
+        .apply{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .myprofile
+        {
+            display: grid;
+            margin-left: 500px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{{url_for('login_blueprint.jobseeker_home.jobseeker_home_page')}}">Home</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.searchjob')}}">Search Title</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.applied_list')}}">View Applied List</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.google_api')}}">Google API</a></li>
+          <li><a href="{{url_for('login_blueprint.jobseeker_home.myprofile')}}">My Profile</a></li>
+            <li><a href="{{url_for('login_blueprint.jobseeker_home.updatepassword')}}">Update Password</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{url_for('login_blueprint.jobseeker_home.jobseeker_logout')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-10">
+          <p> Hello, {{session['name']}}</p>
+            {% if search %}
+          <form action="{{url_for('login_blueprint.jobseeker_home.jobseeker_search_jobid')}}" method="post" >
+          <label for="jobid">Search JobID: </label>
+          <input type="number" name="jobid" placeholder="Enter JobID">
+          <input type="submit">
+          </form>
+           {% endif %}
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+    {% if msg %}
+        <p align="center" >{{msg}}</p>
+    {% endif %}
+    <div class="apply">
+    {% if jobsearch and createdidname %}
+      <p>Createdby: {{createdidname}}</p><br>
+        <p>Job ID: {{jobid}}</p><br>
+    <p>Title: {{jobsearch['title']}}</p><br>
+    <p>Description: {{jobsearch['description']}}</p><br>
+    <p>Experience: {{jobsearch['experience']}}</p><br>
+    <p>Skill1: {{jobsearch['skill1']}}</p><br>
+    <p>Skill2: {{jobsearch['skill2']}}</p><br>
+    <p>Location1: {{jobsearch['location1']}}</p><br>
+    <p>Location2: {{jobsearch['location2']}}</p><br>
+    <p>Remote: {{jobsearch['remote']}}</p><br>
+    <p>Link: {{jobsearch['link']}}</p>
+    <form action="{{url_for('login_blueprint.jobseeker_home.jobseeker_apply')}}" method="post">
+        <input type="submit" value="Apply">
+    </form>
+    {% endif %}
+     </div>
+    {% if apply %}
+        {% for d in apply %}
+            <p align="center">JobId:{{d['jobid']}} Title: {{d['title']}} Type: {{d['type']}}</p>
+            <p align="center">Experience: {{d['experience']}} Skill1: {{d['skill1']}} Createdby: {{d['name']}}</p>
+        {% endfor %}
+    {% endif %}
+    {% if d %}
+    <script async src="https://cse.google.com/cse.js?cx=1235283dfebe640d7">
+         {{d.job}}
+    </script>
+    {% endif %}
+    {% if my %}
+    <div class="myprofile">
+    <p>BIO: {{myprofile['bio']}}</p><br>
+    <p>Job Type: {{myprofile['jobtype']}}</p>
+    <p>:Experience {{myprofile['experience']}}</p><br>
+    <p>Skill1: {{myprofile['skill1']}}</p><br>
+    <p>Skill2: {{myprofile['skill2']}}</p><br>
+    <p>Location1: {{myprofile['location1']}}</p><br>
+    <p>Location2: {{myprofile['location2']}}</p><br>
+    <p>Remote: {{myprofile['remote']}}</p><br>
+    <p>Github: {{myprofile['github']}}</p>
+    <p>Linkedin: {{myprofile['linkedin']}}</p>
+    <h4><a href="{{url_for('login_blueprint.jobseeker_home.download')}}">Click Here to download Resume</a>
+    <a href="{{url_for('login_blueprint.jobseeker_home.update')}}">Click Here to update profile</a></h4>
+    </div>
+    {% endif %}
+    {% if passmsg %}
+    <h4 style="color: red;text-align: center;">{{passmsg}}</h4>
+    {% endif %}
+    {% if passwordupdate %}
+    <div  style="border: 1px solid black; border-radius: 5px; width: 500px;height: 300px;margin-left: 500px;padding: 60px">
+        <form action="/login/updatepassword" method="post">
+            {{passwordupdate.old_password.label}}     {{passwordupdate.old_password}}<br>
+            {{passwordupdate.new_password.label}}     {{passwordupdate.new_password}}<br>
+            {{passwordupdate.conform_new.label}}      {{passwordupdate.conform_new}}<br>
+            {{passwordupdate.submit}}
+        </form>
+    </div>
+    {% endif %}
+</body>
+</html>

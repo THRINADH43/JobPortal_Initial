@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Recruiter Home Page</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/login/recruiter_home_page">Home</a></li>
+          <li><a href="/login/post_job">Post a Job</a></li>
+          <li><a href="/login/createdbyme">Created by Me</a></li>
+          <li><a href="/login/recruiter/updatepassword">Update Password</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{url_for('login_blueprint.recruiter_home.recruiter_logout')}}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <h4>Hello {{name}}. It's Great to see you here.</h4>
+          <h4>Let's Empower.</h4>
+          <h4>We would help you in this process</h4>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+        {% if passmsg %}
+              <h4>{{passmsg}}</h4>
+        {% endif %}
+        {% if passwordupdate %}
+        <form action="/login/recruiter/updatepassword" method="post">
+            {{passwordupdate.old_password.label}}{{passwordupdate.old_password}}<br>
+            {{passwordupdate.new_password.label}}{{passwordupdate.new_password}}<br>
+            {{passwordupdate.conform_new.label}}{{passwordupdate.conform_new}}<br>
+            {{passwordupdate.submit}}
+        </form>
+        {% endif %}
+</body>
+</html>

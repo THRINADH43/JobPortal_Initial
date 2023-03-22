@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Job Posting Page</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Career Connect</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/login/recruiter_home_page">Home</a></li>
+          <li><a href="/login/post_job">Post a Job</a></li>
+          <li><a href="/login/createdbyme">Created by Me</a></li>
+            <li><a href="/login/recruiter/updatepassword">Update Password</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/login/recruiter_logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <form method="post" action="/login/post_job/confirm">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <label for="{{ data.title.id }}" >Title</label>
+          {{ data['title'] }}
+            <br>
+            <label for="{{ data.description.id }}">DESCRIPTION</label>
+            {{ data['description'] }}
+            <br>
+            <label for="{{ data.jobtype.id }}">Type</label>
+            {{ data['jobtype'] }}
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+        <!-- {{ data.csrf_token}} -->
+        <div class="float-left">
+            <label for="{{ data.location1.id }}">Location 1</label>
+            {{ data['location1'] }}
+            <br>
+            <label for="{{ data.location2.id }}">Location 2</label>
+            {{ data['location2'] }}
+        </div>
+        <div class="float-right">
+            <label for="{{ data.skill1.id }}">Skill 1</label>
+            {{ data['skill1'] }}
+            <br>
+            <label for="{{ data.skill2.id }}">Skill 2</label>
+            {{ data['skill2'] }}
+            <br>
+            <label for="{{ data.experience.id }}">Experience</label>
+            {{ data['experience'] }}
+            <br>
+            <label for="{{ data.link.id }}">Link</label>
+            {{ data['link'] }}
+            <br>
+            <label for="{{ data.description.id }}">Remote</label>
+            {{ data['remote'] }}
+            <h5>Click on Submit Twice</h5>
+            <input type="submit" value="Review and Confirm">
+        </div>
+    </form>
+</body>
+</html>

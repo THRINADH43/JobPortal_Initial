@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OTP Successful</title>
+</head>
+<body>
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+    <h3 style="color: green;">Authentication Successful</h3>
+    <h3 align="center">You would be Redirected to User Data Entry Page in 3 seconds.</h3>
+    <h4 align="center">Kindly fill all the details</h4>
+    <h3 align="center"><a href="{{url_for('jobseeker_blueprint.registerdetails')}}">If not click Here</a></h3>
+</div>
+    <script>
+    setTimeout(() => {
+        location.href = "{{ url_for('jobseeker_blueprint.registerdetails') }}";
+    }, 3000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+            <meta charset="UTF-8">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+            <title>Job Seeker Details</title>
+    </head>
+    <body>
+            <form method="POST" enctype="multipart/form-data" action="{{url_for('jobseeker_blueprint.registerdetails')}}">
+                {{ form.hidden_tag() }}<br>
+                {{form.jobtype.label}} {{form.jobtype}}<br>
+                {{form.bio.label}} {{form.bio}}
+                {{form.githublink.label}} {{form.githublink}}<br>
+                {{form.linkedinlink.label}} {{form.linkedinlink}}<br>
+                {{form.college.label}} {{form.college}}<br>
+                {{form.skill1.label}} {{form.skill1(id='skill1')}}<br>
+                {{form.skill2.label}} {{form.skill2(id='skill2')}}<br>
+                {{form.location1.label}} {{form.location1(id='location1')}}<br>
+                {{form.location2.label}} {{form.location2(id='location2')}}<br>
+                <div>
+                    <label for="occupation">{{form.occupation.label}}</label>
+                        {{ form.occupation(onchange="showDiv(this)") }}<br>
+                </div>
+            <div id="student" style="display:none;">
+                <div>
+                    <label for="student"> {{form.graduation_year.label}}</label>
+                    {{ form.graduation_year }}<br>
+                </div>
+            </div>
+            <div id="professional" style="display:none;">
+                <div>
+                    <label for="professional">{{form.experience.label}}</label>
+                    {{ form.experience }}<br>
+                </div>
+            </div>
+                <div id="file">
+        <div>
+            <label for="file">{{form.file.label}}</label>
+            {{form.file}}
+        </div>
+    </div>
+                <div>
+                {{ form.submit }}
+            </div>
+          </form>
+
+<script>
+    window.onload = function() {
+        var location1 = document.getElementById("location1");
+        var location2 = document.getElementById("location2");
+        var skill1 = document.getElementById("skill1");
+        var skill2 = document.getElementById("skill2");
+        location1.onchange = function () {
+            location2.value = "";
+            for (var i = 0; i < location2.options.length; i++) {
+                if (location1.value === location2.options[i].value) {
+                    location2.options[i].style.display = "none";
+                } else {
+                    location2.options[i].style.display = "block";
+                }
+            }
+        }
+    }
+    function showDiv(select){
+        var div_student = document.getElementById("student");
+        var div_professional = document.getElementById("professional");
+        if(select.value === "Student"){
+            div_student.style.display = "block";
+            div_professional.style.display = "none";
+        }
+        else{
+            div_student.style.display = "none";
+            div_professional.style.display = "block";
+        }
+    }
+    var input = document.querySelector("input[type='file']");
+    var form = document.querySelector("form");
+    var maxSize = 3 * 1024 * 1024; // 3MB
+    var allowedExtensions = ["pdf"];
+
+form.addEventListener("submit", function(e) {
+  var file = input.files[0];
+  if (file) {
+    var fileSize = file.size;
+    var fileExtension = file.name.split(".")[1].toLowerCase();
+    if (fileSize > maxSize) {
+      alert("File size should be less than 3MB");
+      e.preventDefault();
+    } else if (allowedExtensions.indexOf(fileExtension) === -1) {
+      alert("Only PDF files are allowed");
+      e.preventDefault();
+    } else {
+      // submit the form
+    }
+  }
+});
+
+</script>
+
+    </body>
+</html>
